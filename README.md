@@ -5,13 +5,14 @@
 
 **TL;DR:** A node.js script to organize files, handle duplicates and filter files
 
-**The real story:** Along the years my photos have been stored in places I thought were smart. With the years, after changing computers, changing hard drives, started and not finished organizing and cleaning stuff... then kids came into life and now everything was a mess.
+**The real story:** For many years i stored my photos in places I thought were smart, different places because I kept getting different ideas. After some years, changing computers, changing hard drives, after starting and not finishing organizing and cleaning stuff... my files are spread in many different folders and hard drives... Then kids came into life, more photos came along, and now everything was a mess.
 
-So I started this project to fix this mess. If you have been there and want to use this, re-write this text it or make the program better: your're welcome!
+So I started this project to fix this mess.  
+If you _have been there_ and want to use this, re-write this text it or make the program better: your're welcome!
 
 # How to Use
 
-This repository is in development. If you want to try it, run `sandbox.js` to get a idea.
+> This repository is in development. If you want to try it, run `sandbox.js` to get a idea.
 
 ### API
 
