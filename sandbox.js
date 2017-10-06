@@ -7,5 +7,5 @@ const tests = './__tests__/images';
 const folder = tests;
 
 organizer(folder, {ext: '.jpg', verbose: true, recursive: true})
-	.then(res => console.log('RESULT:', res))
+	.then(res => console.log('RESULT:', JSON.stringify(res, null, '  ')))
 	.catch(e => console.log(e));
