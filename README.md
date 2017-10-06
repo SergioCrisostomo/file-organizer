@@ -1,8 +1,6 @@
 
 # File organizer
 
----
-
 **TL;DR:** A node.js script to organize files, handle duplicates and filter files
 
 **The real story:** For many years i stored my photos in places I thought were smart, different places because I kept getting different ideas. After some years, changing computers, changing hard drives, after starting and not finishing organizing and cleaning stuff... my files are spread in many different folders and hard drives... Then kids came into life, more photos came along, and now everything was a mess.
@@ -12,7 +10,7 @@ If you _have been there_ and want to use this, re-write this text it or make the
 
 # How to Use
 
-> This repository is in development. If you want to try it, run `sandbox.js` to get a idea.
+> This repository is in development. If you want to try it, run `node sandbox` to get a idea.
 
 ### API
 
@@ -26,10 +24,10 @@ The organizer takes 2 arguments:
 
 ### Example
 
-const organizer = require('./index');
-organizer(folder, {ext: '.jpg', verbose: true, recursive: true})
-	.then(res => console.log('RESULT:', res))
-	.catch(e => console.log(e));
+    const organizer = require('./index');
+    organizer(folder, {ext: '.jpg', verbose: true, recursive: true})
+    	.then(res => console.log('RESULT:', res))
+    	.catch(e => console.log(e));
 
 
 ---
