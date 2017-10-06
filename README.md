@@ -3,7 +3,7 @@
 
 ---
 
-**TL;DR:** A script to organize files, handle duplicates and filter files
+**TL;DR:** A node.js script to organize files, handle duplicates and filter files
 
 **The real story:** Along the years my photos have been stored in places I thought were smart. With the years, after changing computers, changing hard drives, started and not finished organizing and cleaning stuff... then kids came into life and now everything was a mess.
 
