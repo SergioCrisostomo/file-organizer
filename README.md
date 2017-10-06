@@ -10,13 +10,13 @@ If you _have been there_ and want to use this, re-write this text it or make the
 
 # How to Use
 
-> This repository is in development. If you want to try it, run `node sandbox` to get a idea.
+> This repository is in development. If you want to try it, run `node sandbox` to get an idea.
 
 ### API
 
 The organizer takes 2 arguments:
 
- - `folder`: the folder to start looking for images
+ - `folders`: a folder array to start looking for images
  - `options`: the options to use (optional).
     - `ext`: file extension
     - `verbose`: to show verbose logs (_defaults to `true`_)
@@ -30,10 +30,9 @@ The organizer takes 2 arguments:
     	.catch(e => console.log(e));
 
 
----
 
 ## Roadmap:
 
  - add actions to the results found so user can actually fix/organize files
  - add tests (Jest)
- - add a UI with a localhost (probably Vue.js)
+ - add a UI with a localhost (Vue.js + iView UI)

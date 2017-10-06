@@ -44,8 +44,11 @@ function groupData(path, stats, buffer, metadata) {
 	return {path, stats, /*string,*/ metadata};
 }
 
-module.exports = async (dir, {ext, recursive, verbose = true}) => {
-	let files = await readFolder(dir, ext, recursive);
+module.exports = async (dirs, {ext, recursive, verbose = true}) => {
+	const futureFileList = Promise.all(dirs.map(dir => readFolder(dir, ext, recursive))).then(folders => {
+		return folders.reduce((files, folder) => files.concat(folder), []);
+	});
+	let files = await futureFileList;
 	console.log(`Found ${files.length} files...`);
 
 	// files = files.slice(0, 900); // <-- usefull when debuging
