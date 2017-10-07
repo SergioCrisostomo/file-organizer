@@ -115,7 +115,11 @@ export default {
 			if (!this.inputPath.trim()) return;
 			if (add) {
 				if (this.paths.includes(this.inputPath)) return;
-				this.paths = this.paths.concat(this.inputPath);
+				axios.post('/check-path', {path: this.inputPath}).then(res => {
+					const ok = res.data;
+					if (ok) this.paths = this.paths.concat(this.inputPath);
+					else this.$Message.warning('Path does not exist');
+				});
 			} else {
 				this.paths = this.paths.filter(path => path != this.inputPath);
 			}

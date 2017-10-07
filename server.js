@@ -3,6 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const ajax = require('./routes/ajax');
+const checkFolderExists = require('./routes/checkFolderExists');
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/localhost'));
 
 app.post('/ajax', ajax);
+app.post('/check-path', checkFolderExists);
 
 app.use(function(err, req, res, next) {
 	const status = err.status || 500;
