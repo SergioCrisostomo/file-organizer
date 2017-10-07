@@ -12,7 +12,7 @@ app.use(express.static(__dirname + '/localhost'));
 
 app.post('/ajax', ajax);
 
-app.use(function(err, req, res) {
+app.use(function(err, req, res, next) {
 	const status = err.status || 500;
 	res.status(status);
 	res.send(err);
