@@ -56,7 +56,8 @@
                 <tab-pane name="choose-folders" label="Add folders">
                     <div>
                         Add a folder to read here:
-                        <Input v-model="inputPath" style="width: 300px; margin-left: 10px;"></Input>
+                        <Input v-model="inputPath" style="width: 300px; margin-left: 10px;"/>
+                        <Input v-model="fileExtension" style="width: 80px; margin-left: 10px;" placeholder="File extension" />
                         <Button type="ghost" @click="togglePath(true)" icon="plus"></Button>
                     </div>
                     <hr style="margin: 10px 0;">
@@ -82,6 +83,7 @@ export default {
 	data() {
 		return {
 			inputPath: '/Users/Desktop',
+			fileExtension: 'jpg',
 			currentTab: 'choose-folders',
 			paths: [],
 			folders: {},
@@ -96,8 +98,13 @@ export default {
 				return;
 			}
 			this.loading = true;
+			const extensions = this.fileExtension
+				.split(/,\./g)
+				.map(el => el.trim())
+				.filter(Boolean);
+
 			axios
-				.post('/ajax', {paths: this.paths, process: this.currentTab != 'choose-folders'})
+				.post('/ajax', {paths: this.paths, process: this.currentTab != 'choose-folders', ext: extensions})
 				.then(res => (this.folders = res.data))
 				.then(() => (this.loading = false))
 				.catch(e => console.log(e));

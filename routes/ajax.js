@@ -3,9 +3,9 @@ const organizer = require('../lib/index');
 module.exports = (req, res) => {
 	console.log(req.originalUrl, req.body);
 
-	const process = req.body.process;
+	const {paths, ext, process} = req.body;
 	const options = {verbose: true, process: process};
-	if (process) options.ext = '.jpg';
+	if (process && ext.length > 0) options.ext = ext.map(type => '.' + type.toLowerCase()).join('|');
 
 	organizer(req.body.paths, options)
 		.then(data => res.send(data))
