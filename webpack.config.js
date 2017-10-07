@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const BUILD_DIR = path.resolve(__dirname, 'ui/');
+const BUILD_DIR = path.resolve(__dirname, 'localhost/');
 
 module.exports = {
 	entry: __dirname + '/app/app.js',
