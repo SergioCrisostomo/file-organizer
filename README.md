@@ -36,4 +36,4 @@ The organizer takes 2 arguments:
 
  - add actions to the results found so user can actually fix/organize files
  - add tests (Jest)
- - add a UI with a localhost (Vue.js + iView UI)
+ - improve the UI localhost (Vue.js + iView UI)

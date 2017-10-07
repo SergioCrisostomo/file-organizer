@@ -70,7 +70,11 @@
                         <Spin size="small"></Spin><Spin size="small"></Spin><Spin size="small"></Spin>
                     </div>
                 </tab-pane>
-                <tab-pane name="show-files" label="See files">Maybe a Tree component with the files?</tab-pane>
+                <tab-pane name="show-files" label="See files">
+                    <Button type="ghost" @click="updateData(true)">Check for duplicates</Button>
+                    <hr style="margin: 10px 0;">
+
+                </tab-pane>
                 <tab-pane name="take-actions" label="Take actions">Something smart</tab-pane>
             </tabs>
         </div>
@@ -92,11 +96,18 @@ export default {
 	},
 	watch: {
 		paths() {
+			this.updateData();
+		}
+	},
+	methods: {
+		updateData(process = false) {
 			if (this.paths.length === 0) {
 				this.folders = {};
 				this.loading = false;
+				if (process == true) this.$Message.warning('No folders selected');
 				return;
 			}
+
 			this.loading = true;
 			const extensions = this.fileExtension
 				.split(/,\./g)
@@ -104,13 +115,11 @@ export default {
 				.filter(Boolean);
 
 			axios
-				.post('/ajax', {paths: this.paths, process: this.currentTab != 'choose-folders', ext: extensions})
+				.post('/ajax', {paths: this.paths, process: process, ext: extensions})
 				.then(res => (this.folders = res.data))
 				.then(() => (this.loading = false))
 				.catch(e => console.log(e));
-		}
-	},
-	methods: {
+		},
 		togglePath(add) {
 			if (!this.inputPath.trim()) return;
 			if (add) {
