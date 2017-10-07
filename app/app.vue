@@ -35,6 +35,12 @@
         padding: 20px;
         min-height: 200px;
     }
+    .loading-spinners {
+        margin-top: 20px;
+    }
+    .loading-spinners > * {
+        display: inline-block;
+    }
 </style>
 <template>
     <div class="layout">
@@ -46,8 +52,8 @@
         <div class="layout-header">
         </div>
         <div class="layout-body">
-            <tabs value="name1">
-                <tab-pane label="Add folders">
+            <tabs v-model="currentTab">
+                <tab-pane name="choose-folders" label="Add folders">
                     <div>
                         Add a folder to read here:
                         <Input v-model="inputPath" style="width: 300px; margin-left: 10px;"></Input>
@@ -59,9 +65,12 @@
                         <span class="folder-name">{{path}}</span>
                         <span class="file-count">({{fileCount(path)}} files)</span>
                     </p>
+                    <div class="loading-spinners" v-if="loading">
+                        <Spin size="small"></Spin><Spin size="small"></Spin><Spin size="small"></Spin>
+                    </div>
                 </tab-pane>
-                <tab-pane label="See files">Maybe a Tree component with the files?</tab-pane>
-                <tab-pane label="Take actions">Something smart</tab-pane>
+                <tab-pane name="show-files" label="See files">Maybe a Tree component with the files?</tab-pane>
+                <tab-pane name="take-actions" label="Take actions">Something smart</tab-pane>
             </tabs>
         </div>
     </div>
@@ -73,16 +82,24 @@ export default {
 	data() {
 		return {
 			inputPath: '/Users/Desktop',
+			currentTab: 'choose-folders',
 			paths: [],
-			folders: {}
+			folders: {},
+			loading: false
 		};
 	},
 	watch: {
 		paths() {
-			if (this.paths.length === 0) this.folders = {};
+			if (this.paths.length === 0) {
+				this.folders = {};
+				this.loading = false;
+				return;
+			}
+			this.loading = true;
 			axios
-				.post('/ajax', {paths: this.paths})
+				.post('/ajax', {paths: this.paths, process: this.currentTab != 'choose-folders'})
 				.then(res => (this.folders = res.data))
+				.then(() => (this.loading = false))
 				.catch(e => console.log(e));
 		}
 	},

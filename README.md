@@ -21,6 +21,7 @@ The organizer takes 2 arguments:
     - `ext`: file extension
     - `verbose`: to show verbose logs (_defaults to `true`_)
     - `recursive`: if it should look for files in subdirectories (_defaults to `false`_)
+    - `process`: if it should find duplicates or just show a file list (_defaults to `true`_)
 
 ### Example
 
