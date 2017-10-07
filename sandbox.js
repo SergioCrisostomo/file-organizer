@@ -1,6 +1,6 @@
 // import organizer from './index';
 
-const organizer = require('./index');
+const organizer = require('./lib/index');
 const tests = './__tests__/images';
 
 // configure the folder where to look for images
