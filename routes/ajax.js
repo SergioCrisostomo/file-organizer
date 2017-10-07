@@ -5,7 +5,7 @@ module.exports = (req, res) => {
 
 	const {paths, ext, process} = req.body;
 	const options = {verbose: true, process: process};
-	if (process && ext.length > 0) options.ext = ext.map(type => '.' + type.toLowerCase()).join('|');
+	if (ext.length > 0) options.ext = ext.map(type => '.' + type.toLowerCase()).join('|');
 
 	organizer(req.body.paths, options)
 		.then(data => res.send(data))
