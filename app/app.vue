@@ -31,9 +31,10 @@
         color: #9ba7b5;
     }
     .layout-body {
-        height: 100%;
+        height: 70vh;
         padding: 20px;
         min-height: 200px;
+        overflow-y: scroll;
     }
     .loading-spinners {
         margin-top: 20px;
@@ -54,26 +55,12 @@
         <div class="layout-body">
             <tabs v-model="currentTab">
                 <tab-pane name="choose-folders" label="Add folders">
-                    <div>
-                        Add a folder to read here:
-                        <Input v-model="inputPath" style="width: 300px; margin-left: 10px;"/>
-                        <Input v-model="fileExtension" style="width: 80px; margin-left: 10px;" placeholder="File extension" />
-                        <Button type="ghost" @click="togglePath(true)" icon="plus"></Button>
-                    </div>
-                    <hr style="margin: 10px 0;">
-                    <p v-for="path in paths">
-                        <Button size="small" type="ghost" @click="togglePath(false)" icon="minus"></Button>
-                        <span class="folder-name">{{path}}</span>
-                        <span class="file-count">({{fileCount(path)}} files)</span>
-                    </p>
-                    <div class="loading-spinners" v-if="loading">
-                        <Spin size="small"></Spin><Spin size="small"></Spin><Spin size="small"></Spin>
-                    </div>
+                    <folder-selector :file-extension="fileExtension"></folder-selector>
                 </tab-pane>
                 <tab-pane name="show-files" label="See files">
                     <Button type="ghost" @click="updateData(true)">Check for duplicates</Button>
                     <hr style="margin: 10px 0;">
-                    <Tree :data="folderTree" ></Tree>
+                    <Tree :data="folderTree" show-checkbox></Tree>
                 </tab-pane>
                 <tab-pane name="take-actions" label="Take actions">Something smart</tab-pane>
             </tabs>
@@ -82,6 +69,7 @@
 </template>
 <script>
 import axios from 'axios';
+import folderSelector from './folderSelector.vue';
 
 const compileTree = (() => {
 	function extractTreeNode(rootPath, files) {
@@ -110,7 +98,7 @@ const compileTree = (() => {
 			const node = extractTreeNode(subPath, subLevels[subPath]);
 			return tree.concat(node);
 		}, []);
-		return thisLevel.map(el => ({title: el})).concat(children);
+		return thisLevel.map(el => ({ title: el })).concat(children);
 	}
 
 	return source => {
@@ -126,13 +114,16 @@ export default {
 	el: '#app',
 	data() {
 		return {
-			inputPath: '/Users/Desktop',
+			inputPath: '/Users/sergiocrisostomo/Desktop/deleteme',
 			fileExtension: 'jpg',
 			currentTab: 'choose-folders',
 			paths: [],
 			folders: {},
 			loading: false
 		};
+	},
+	components: {
+		'folder-selector': folderSelector
 	},
 	computed: {
 		folderTree() {
@@ -160,7 +151,7 @@ export default {
 				.filter(Boolean);
 
 			axios
-				.post('/ajax', {paths: this.paths, process: process, ext: extensions})
+				.post('/ajax', { paths: this.paths, process: process, ext: extensions })
 				.then(res => (this.folders = res.data))
 				.then(() => (this.loading = false))
 				.catch(e => console.log(e));
@@ -169,7 +160,7 @@ export default {
 			if (!this.inputPath.trim()) return;
 			if (add) {
 				if (this.paths.includes(this.inputPath)) return;
-				axios.post('/check-path', {path: this.inputPath}).then(res => {
+				axios.post('/check-path', { path: this.inputPath }).then(res => {
 					const ok = res.data;
 					if (ok) this.paths = this.paths.concat(this.inputPath);
 					else this.$Message.warning('Path does not exist');
