@@ -3,6 +3,11 @@
   display: inline-block;
   vertical-align: middle;
 }
+.selector-section {
+  margin: 10px 0;
+  padding: 10px 0;
+  border-bottom: 2px solid black;
+}
 </style>
 <template>
   <div>
@@ -10,19 +15,30 @@
       <!-- <Input v-model="inputPath" style="width: 300px; margin-left: 10px;"/>
       <Input v-model="fileExtension" style="width: 80px; margin-left: 10px;" placeholder="File extension" />
       <Button type="ghost" @click="togglePath(true)" icon="plus"></Button> -->
-      <div class="actions">
+      <div class="actions selector-section">
         <h1>Actions:</h1>
         <div class="action-buttons">
           <Button type="ghost" @click="loadSelected(selected)" :disabled="selected.length == 0">Load subtree</Button>
           <Button type="ghost" @click="makeRootFromSelected(selected)" :disabled="selected.length == 0">Make it root node</Button>
+          <Button type="ghost" @click="addToSelected(selected)" :disabled="selected.length == 0">Add to selected</Button>
           <Button type="ghost" @click="hideSelected(selected)" :disabled="selected.length == 0">Hide</Button>
         </div>
       </div>
-      <hr style="margin: 10px 0;">
-      <h1>Select folders:</h1>
-      <Tree :data="tree" show-checkbox @on-select-change="onSelect" multiple ref="Tree"></Tree>
-      <div class="loading-spinners" v-if="loading">
-          <Spin size="small"></Spin><Spin size="small"></Spin><Spin size="small"></Spin>
+      <div class="selector-section">
+        <h1>Selected paths:</h1>
+        <div v-for="path in selectedPaths">
+          <p>
+            <span>{{path}}</span>
+            <Button type="ghost" @click="removePath(path)" icon="minus" size="small"></Button>
+          </p>
+        </div>
+      </div>
+      <div class="selector-section">
+        <h1>Select folders:</h1>
+        <Tree :data="tree" show-checkbox @on-select-change="onSelect" multiple :show-checkbox="false" ref="Tree"></Tree>
+        <div class="loading-spinners" v-if="loading">
+            <Spin size="small"></Spin><Spin size="small"></Spin><Spin size="small"></Spin>
+        </div>
       </div>
   </div>
 </template>
@@ -32,7 +48,8 @@ import axios from 'axios';
 export default {
 	name: 'folderSelector',
 	props: {
-		fileExtension: String
+		fileExtension: String,
+		selectedPaths: Array
 	},
 	data() {
 		return {
@@ -54,7 +71,7 @@ export default {
 			const subFolders = data.subFolders.map(folder => {
 				return {
 					path: folderName,
-					fullPath: [parent, folder],
+					fullPath: [parent, folder].join(''),
 					expand: false,
 					title: folder,
 					children: []
@@ -63,7 +80,7 @@ export default {
 
 			return {
 				path: parent,
-				fullPath: [parent],
+				fullPath: parent,
 				expand: true,
 				title: title,
 				children: subFolders
@@ -76,7 +93,7 @@ export default {
 			this.$refs.Tree.getSelectedNodes().forEach(node => (node.selected = false));
 		},
 		loadSelected(paths) {
-			const fullPaths = paths.map(p => p.fullPath.join(''));
+			const fullPaths = paths.map(p => p.fullPath);
 			Promise.all(fullPaths.map(p => this.getPathChildren(p))).then(nodes => {
 				nodes.forEach((node, i) => {
 					const updatedNode = this.nodify(node.data, paths[i].title, paths[i].path);
@@ -102,6 +119,14 @@ export default {
 		makeRootFromSelected(paths) {
 			this.tree = paths;
 			this.resetSelected();
+		},
+		addToSelected(selected) {
+			this.$emit('update-paths', selected.map(el => el.fullPath));
+			this.resetSelected();
+		},
+		removePath(path) {
+			const selected = this.selectedPaths.filter(p => p != path);
+			this.$emit('update-paths', selected);
 		}
 	},
 	mounted() {

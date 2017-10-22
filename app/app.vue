@@ -31,7 +31,7 @@
         color: #9ba7b5;
     }
     .layout-body {
-        height: 70vh;
+        height: 85vh;
         padding: 20px;
         min-height: 200px;
         overflow-y: scroll;
@@ -54,8 +54,12 @@
         </div>
         <div class="layout-body">
             <tabs v-model="currentTab">
-                <tab-pane name="choose-folders" label="Add folders">
-                    <folder-selector :file-extension="fileExtension"></folder-selector>
+                <tab-pane name="choose-folders" label="Choose folders">
+                    <folder-selector
+                      @update-paths="updatePaths"
+                      :file-extension="fileExtension"
+                      :selectedPaths="paths"
+                    />
                 </tab-pane>
                 <tab-pane name="show-files" label="See files">
                     <Button type="ghost" @click="updateData(true)">Check for duplicates</Button>
@@ -136,6 +140,9 @@ export default {
 		}
 	},
 	methods: {
+		updatePaths(paths) {
+			this.paths = paths;
+		},
 		updateData(process = false) {
 			if (this.paths.length === 0) {
 				this.folders = {};
@@ -151,23 +158,10 @@ export default {
 				.filter(Boolean);
 
 			axios
-				.post('/ajax', { paths: this.paths, process: process, ext: extensions })
+				.post('/organizer', { paths: this.paths, process: process, ext: extensions })
 				.then(res => (this.folders = res.data))
 				.then(() => (this.loading = false))
 				.catch(e => console.log(e));
-		},
-		togglePath(add) {
-			if (!this.inputPath.trim()) return;
-			if (add) {
-				if (this.paths.includes(this.inputPath)) return;
-				axios.post('/check-path', { path: this.inputPath }).then(res => {
-					const ok = res.data;
-					if (ok) this.paths = this.paths.concat(this.inputPath);
-					else this.$Message.warning('Path does not exist');
-				});
-			} else {
-				this.paths = this.paths.filter(path => path != this.inputPath);
-			}
 		},
 		fileCount(path) {
 			return this.folders[path] ? this.folders[path].files.length : 0;
