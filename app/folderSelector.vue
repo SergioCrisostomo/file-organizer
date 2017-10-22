@@ -11,10 +11,6 @@
 </style>
 <template>
   <div>
-
-      <!-- <Input v-model="inputPath" style="width: 300px; margin-left: 10px;"/>
-      <Input v-model="fileExtension" style="width: 80px; margin-left: 10px;" placeholder="File extension" />
-      <Button type="ghost" @click="togglePath(true)" icon="plus"></Button> -->
       <div class="actions selector-section">
         <h1>Actions:</h1>
         <div class="action-buttons">
@@ -36,9 +32,6 @@
       <div class="selector-section">
         <h1>Select folders:</h1>
         <Tree :data="tree" show-checkbox @on-select-change="onSelect" multiple :show-checkbox="false" ref="Tree"></Tree>
-        <div class="loading-spinners" v-if="loading">
-            <Spin size="small"></Spin><Spin size="small"></Spin><Spin size="small"></Spin>
-        </div>
       </div>
   </div>
 </template>
@@ -48,7 +41,6 @@ import axios from 'axios';
 export default {
 	name: 'folderSelector',
 	props: {
-		fileExtension: String,
 		selectedPaths: Array
 	},
 	data() {
@@ -71,7 +63,7 @@ export default {
 			const subFolders = data.subFolders.map(folder => {
 				return {
 					path: folderName,
-					fullPath: [parent, folder].join(''),
+					fullPath: folder,
 					expand: false,
 					title: folder,
 					children: []
