@@ -2,12 +2,8 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-var cors = require("cors");
-/*
-const organizer = require("./routes/organizer");
-*/
+const cors = require("cors");
 const folderSelector = require("./routes/folderSelector");
-const checkFolderExists = require("./routes/checkFolderExists");
 
 const app = express();
 
@@ -18,9 +14,8 @@ app.use(express.static(__dirname + "/localhost"));
 app.use((req, res, next) => {
   console.log(req.originalUrl);
   next();
-})
+});
 
-app.post("/check-path", checkFolderExists);
 app.get("/folder-selector", folderSelector);
 
 /*
