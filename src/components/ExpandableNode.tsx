@@ -1,29 +1,39 @@
 import fetchPath from "../utils/fetchPath";
-import store, { updateNode } from "../store";
+import store from "../store";
 import React from "react";
 import { TreeNodeType } from "../reducers/types";
 import TreeNode from "./TreeNode";
+import { updateNode } from "../reducers/updateNode";
+import { toggleNodeCheck } from "../reducers/toggleNodeCheck";
 
 const ExpandableNode = (props: TreeNodeType) => {
-  const dirname = props.path.split("/").pop();
+
+  const path = props.path;
+  const checked = Boolean(props.checked);
+  const dirname = path.split("/").pop();
 
   const onIconClick = async () => {
     const expanded = !props.expanded;
-    const nodeDate = await fetchPath(props.path);
+    const nodeDate = await fetchPath(path);
     store.dispatch(
       updateNode({
-        path: props.path,
-        checked: false,
+        path,
+        checked,
         expanded: expanded,
-        subFolders: nodeDate.subFolders.map((str) => ({ path: str })),
-        files: nodeDate.files,
+        subFolders: nodeDate.subFolders.map((str) => ({ path: str, checked })),
+        files: nodeDate.files.map((str) => ({ path: str, checked })),
       })
     );
   };
 
+  const onToggle = async () => {
+    store.dispatch(toggleNodeCheck(props));
+  };
+
   return (
-    <div key={props.path} className="app-selection-node">
-      <input type="checkbox" />/{dirname}
+    <div key={path} className="app-selection-node">
+      <input type="checkbox" checked={checked} onChange={onToggle} />/
+      {dirname}
       <i onClick={onIconClick}>📂</i>
       {props.expanded && TreeNode({ props })}
     </div>
