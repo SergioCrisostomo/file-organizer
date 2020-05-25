@@ -3,32 +3,6 @@ import fetchPath from "./utils/fetchPath";
 
 // import { ADD_TREE_NODE, File } from "./reducers/types";
 
-export const updateNode = (data) => {
-  const state = store.getState();
-  const folderTree = { ...state.folderTree };
-
-  const replaceNode = (root) => {
-    const subFolders = root.subFolders || [];
-
-    for (let i = 0; i < subFolders.length; i++) {
-      const folder = subFolders[i];
-
-      if (folder.path === data.path) {
-        subFolders[i] = data;
-        return;
-      } else {
-        replaceNode(folder);
-      }
-    }
-  };
-
-  replaceNode(folderTree);
-
-  return {
-    type: "folderTree",
-    payload: folderTree,
-  };
-};
 
 export const folderTreeUpdateAction = (tree) => {
   return {
@@ -58,8 +32,8 @@ const store = createStore(reducer, initialState);
 fetchPath("/").then((data) => {
   const rootData = {
     ...initialState.folderTree,
-    subFolders: data.subFolders.map((str) => ({ path: str })),
-    files: data.files,
+    subFolders: data.subFolders.map((str) => ({ path: str, checked: false })),
+    files: data.files.map((str) => ({ path: str, checked: false })),
   };
   store.dispatch(folderTreeUpdateAction(rootData));
 });
