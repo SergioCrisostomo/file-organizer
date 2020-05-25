@@ -6,6 +6,9 @@
   margin: 0 0.2rem;
 }
 
+.app-selection-node i {
+  user-select: none;
+}
 .app-selection-node i:hover {
   cursor: pointer;
 }
