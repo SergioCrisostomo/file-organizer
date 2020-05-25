@@ -1,12 +1,14 @@
 const fs = require("fs");
 const path = require("path");
+const os = require("os");
 
 function isDirectory(contentPath) {
   return fs.statSync(contentPath).isDirectory();
 }
 
 module.exports = (req, res) => {
-  const folderPath = req.body.path;
+  const folderPath = req.query.path === "/" ? os.homedir() : req.query.path;
+
   fs.readdir(folderPath, (err, contents) => {
     if (err) return console.log(err);
     contents = contents.filter((item) => !/(^|\/)\.[^\/\.]/g.test(item)); // hide hidden folders and junk

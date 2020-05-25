@@ -2,25 +2,30 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+var cors = require("cors");
+/*
 const organizer = require("./routes/organizer");
+*/
 const folderSelector = require("./routes/folderSelector");
 const checkFolderExists = require("./routes/checkFolderExists");
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/localhost"));
+app.use((req, res, next) => {
+  console.log(req.originalUrl);
+  next();
+})
 
-app.post("/organizer", organizer);
-app.post("/folder-selector", folderSelector);
 app.post("/check-path", checkFolderExists);
+app.get("/folder-selector", folderSelector);
 
-const fs = require("fs");
-app.get("/iview.js", (req, res) => {
-  const file = fs.readFileSync("../iview/dist/iview.js", "utf8");
-  res.send(file);
-});
+/*
+app.post("/organizer", organizer);
+*/
 
 app.use(function (err, req, res, next) {
   const status = err.status || 500;
