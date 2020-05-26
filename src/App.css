@@ -16,3 +16,12 @@
 .app-tree-node {
   padding-left: 1rem;
 }
+
+.app-phase-button {
+  padding: .25rem .5rem;
+  background-color: #eeeeee;
+  border-radius: .25rem;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
