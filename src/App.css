@@ -2,12 +2,16 @@
   padding: .05rem 0;
 }
 
-.app-selection-node > * {
+.app-selection-node fieldset {
   margin: 0 0.2rem;
+  border: none;
+  display: inline;
+  padding: 0.25rem;
 }
 
 .app-selection-node i {
   user-select: none;
+  vertical-align: middle;
 }
 .app-selection-node i:hover {
   cursor: pointer;
@@ -24,4 +28,8 @@
   margin-left: 1rem;
   margin-bottom: 1rem;
   font-size: 1rem;
+}
+
+.app-phase-button.app-phase-selected {
+  background-color: aquamarine;
 }

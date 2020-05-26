@@ -22,7 +22,7 @@ const Button = ({ phase, onClick, disabled, type }) => {
 
   const isActive = !disabled && (() => {
     if (type === phase || type === SELECT) return true;
-    
+
     if (type === ANALYSE){
       if (phase === SELECT) return true;
     }
@@ -39,10 +39,12 @@ const Button = ({ phase, onClick, disabled, type }) => {
   })();
 
   const onButtonClick = () => onClick(type);
+  const classes = ['app-phase-button'];
+  if (type === phase) classes.push('app-phase-selected');
 
   return (
     <button
-      className="app-phase-button"
+      className={classes.join(' ')}
       disabled={!isActive}
       onClick={onButtonClick}
     >
@@ -97,16 +99,16 @@ class App extends React.Component<Props, State> {
     this.setState({ phaseButtonActive: false });
     this.setState({ phase: nextPhase });
 
-    if (nextPhase === "analysing") {
+    if (nextPhase === ANALYSE) {
       const selections = this.getSelections();
-      console.log("selections", selections);
+
       const analysisReport = await postSelections(selections);
-      this.setState({ phase: "reporting" });
+      this.setState({ phase: ANALYSE });
       console.log(analysisReport);
     }
 
-    if (nextPhase === "processing") {
-      setTimeout(() => this.setState({ phase: "reporting" }), 2000);
+    if (nextPhase === PROCESS) {
+      setTimeout(() => this.setState({ phase: REPORT }), 2000);
     }
 
     this.setState({ phaseButtonActive: true });
