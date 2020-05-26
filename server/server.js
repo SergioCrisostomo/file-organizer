@@ -1,7 +1,6 @@
 "use strict";
 
 const express = require("express");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const folderSelector = require("./routes/folderSelector");
 const postSelections = require("./routes/postSelections");
@@ -9,8 +8,8 @@ const postSelections = require("./routes/postSelections");
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(express.static(__dirname + "/localhost"));
 app.use((req, res, next) => {
   console.log(req.originalUrl);
