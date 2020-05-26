@@ -32,8 +32,11 @@ const ExpandableNode = (props: TreeNodeType) => {
 
   return (
     <div key={path} className="app-selection-node">
-      <input type="checkbox" checked={checked} onChange={onToggle} />/
-      {dirname}
+      <fieldset>
+        <label htmlFor={path}>/{dirname}</label>
+        <input id={path} type="checkbox" checked={checked} onChange={onToggle} />
+      </fieldset>
+
       <i onClick={onIconClick}>📂</i>
       {props.expanded && TreeNode({ props })}
     </div>
