@@ -1,4 +1,5 @@
 const getFilesFromSelection = require("../utils/getFilesFromSelection");
+const filesAnalyser = require("../../lib/index");
 
 module.exports = (req, res) => {
   console.log("Processing...", req.body);
@@ -7,13 +8,11 @@ module.exports = (req, res) => {
   const promises = getFilesFromSelection([...files, ...folders], [".jpg"]);
 
   Promise.all(promises)
-    .then((allFiles) => {
+    .then(async (allFiles) => {
       const matchedFiles = allFiles.flat();
-      console.log("Found", matchedFiles.length, "files");
+      const analyseReport = await filesAnalyser(matchedFiles);
 
-      res.send({
-        found: matchedFiles.length,
-      });
+      res.send(analyseReport);
     })
     .catch((err) => {
       console.log("ERR", err);
