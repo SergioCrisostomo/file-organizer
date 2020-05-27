@@ -18,16 +18,16 @@ test("Detect correct amount of images", async () => {
 test("Generate a report", async () => {
   const files = await getTestFiles();
   const report = await filesAnalyser(files);
-  const expectedReport = {
-    __maxScore: 5,
-    "/Users/sergiocrisostomo/github/file-organizer/server/__tests__/images/folder_a/bairro_alto-elevador_da_bica.jpg": {
-      "/Users/sergiocrisostomo/github/file-organizer/server/__tests__/images/folder_b/bairro_alto-elevador_da_bica.jpg": 5,
-      "/Users/sergiocrisostomo/github/file-organizer/server/__tests__/images/folder_b/bairro_alto-elevador_da_bica0.jpg": 4,
-    },
-    "/Users/sergiocrisostomo/github/file-organizer/server/__tests__/images/folder_a/beach.jpg": {
-      "/Users/sergiocrisostomo/github/file-organizer/server/__tests__/images/folder_b/beach.jpg": 3,
-    },
-  };
-
+  const expectedReport = [
+    [
+      "/Users/sergiocrisostomo/github/file-organizer/server/__tests__/images/folder_a/bairro_alto-elevador_da_bica.jpg",
+      "/Users/sergiocrisostomo/github/file-organizer/server/__tests__/images/folder_b/bairro_alto-elevador_da_bica.jpg",
+      "/Users/sergiocrisostomo/github/file-organizer/server/__tests__/images/folder_b/bairro_alto-elevador_da_bica0.jpg",
+    ],
+    [
+      "/Users/sergiocrisostomo/github/file-organizer/server/__tests__/images/folder_a/beach.jpg",
+      "/Users/sergiocrisostomo/github/file-organizer/server/__tests__/images/folder_b/beach.jpg",
+    ],
+  ];
   expect(report).toEqual(expectedReport);
 });
