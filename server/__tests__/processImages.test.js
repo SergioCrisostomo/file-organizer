@@ -12,7 +12,7 @@ const getTestFiles = async () => {
 
 test("Detect correct amount of images", async () => {
   const files = await getTestFiles();
-  expect(files.length).toBe(5);
+  expect(files.length).toBe(7);
 });
 
 test("Generate a report", async () => {
