@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should get file stats 1`] = `
+Object {
+  "metadata": Object {
+    "DateTime": "2017:01:24 18:49:24",
+    "ExifIFDPointer": 196,
+    "Make": "Canon",
+    "Model": "Canon EOS 1000D",
+    "Orientation": 1,
+    "ResolutionUnit": 2,
+    "SubExif": Object {
+      "ApertureValue": Array [
+        4,
+      ],
+      "ColorSpace": 1,
+      "ComponentsConfiguration": "0x01020300",
+      "CustomRendered": 0,
+      "DateTimeDigitized": "2017:01:24 18:49:24",
+      "DateTimeOriginal": "2017:01:24 18:49:24",
+      "ExifVersion": "0221",
+      "ExposureBiasValue": 0,
+      "ExposureMode": 0,
+      "ExposureProgram": 2,
+      "ExposureTime": Array [
+        0.003125,
+      ],
+      "FNumber": Array [
+        4,
+      ],
+      "Flash": 16,
+      "FlashpixVersion": "0x30313030",
+      "FocalLength": Array [
+        50,
+      ],
+      "FocalPlaneResolutionUnit": 2,
+      "FocalPlaneXResolution": Array [
+        4438.356164383562,
+      ],
+      "FocalPlaneYResolution": Array [
+        4445.969125214408,
+      ],
+      "InteroperabilityIFDPointer": 9478,
+      "MakerNote": "0x2000010003002f0000001c04000002",
+      "MeteringMode": 5,
+      "PhotographicSensitivity": 200,
+      "PixelXDimension": 3888,
+      "PixelYDimension": 2592,
+      "SceneCaptureType": 0,
+      "ShutterSpeedValue": 8.375,
+      "SubSecTime": "53",
+      "SubSecTimeDigitized": "53",
+      "SubSecTimeOriginal": "53",
+      "UserComment": "0x000000000000000000000000000000",
+      "WhiteBalance": 0,
+    },
+    "XResolution": Array [
+      72,
+    ],
+    "YCbCrPositioning": 2,
+    "YResolution": Array [
+      72,
+    ],
+  },
+  "stats": Stats {
+    "birthtime": 2020-05-21T01:17:20.000Z,
+    "birthtimeMs": 1590023840000,
+    "blksize": 4096,
+    "blocks": 736,
+    "ctime": 2020-05-23T08:09:15.473Z,
+    "ctimeMs": 1590221355472.521,
+    "dev": 16777220,
+    "gid": 20,
+    "ino": 12896680906,
+    "mode": 33188,
+    "mtime": 2020-05-21T01:17:20.000Z,
+    "mtimeMs": 1590023840000,
+    "nlink": 1,
+    "rdev": 0,
+    "size": 372781,
+    "uid": 501,
+  },
+}
+`;
