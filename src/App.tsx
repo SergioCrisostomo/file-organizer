@@ -5,8 +5,9 @@ import "./App.css";
 import { TreeNodeType } from "./reducers/types";
 import TreeNode from "./components/TreeNode";
 import postSelections from "./utils/postSelections";
+import Reporter from "./components/Reporter";
 
-const appPhases = ['Select', 'Analyse', 'Process', 'Report']
+const appPhases = ["Select", "Analyse", "Process", "Report"];
 const [SELECT, ANALYSE, PROCESS, REPORT] = appPhases;
 
 interface Props {}
@@ -14,37 +15,40 @@ interface State {
   folderTree: TreeNodeType;
   phase: string;
   phaseButtonActive: boolean;
+  report: any;
 }
 
 const { getState, subscribe } = store;
 
 const Button = ({ phase, onClick, disabled, type }) => {
+  const isActive =
+    !disabled &&
+    (() => {
+      if (type === phase || type === SELECT) return true;
 
-  const isActive = !disabled && (() => {
-    if (type === phase || type === SELECT) return true;
+      if (type === ANALYSE) {
+        if (phase === SELECT) return true;
+      }
 
-    if (type === ANALYSE){
-      if (phase === SELECT) return true;
-    }
+      if (type === PROCESS) {
+        if (phase === ANALYSE) return true;
+      }
 
-    if (type === PROCESS){
-      if (phase === ANALYSE) return true;
-    }
+      if (type === REPORT) {
+        if (phase === PROCESS) return true;
+      }
 
-    if (type === REPORT){
-      if (phase === PROCESS) return true;
-    }
-
-    return false;
-  })();
+      return false;
+    })();
 
   const onButtonClick = () => onClick(type);
-  const classes = ['app-phase-button'];
-  if (type === phase) classes.push('app-phase-selected');
+  const classes = ["app-phase-button"];
+  if (type === phase) classes.push("app-phase-selected");
 
   return (
     <button
-      className={classes.join(' ')}
+      type="button"
+      className={classes.join(" ")}
       disabled={!isActive}
       onClick={onButtonClick}
     >
@@ -60,6 +64,7 @@ class App extends React.Component<Props, State> {
       folderTree: { path: "/", checked: false, subFolders: [], files: [] },
       phase: SELECT,
       phaseButtonActive: true,
+      report: {},
     };
   }
 
@@ -103,8 +108,7 @@ class App extends React.Component<Props, State> {
       const selections = this.getSelections();
 
       const analysisReport = await postSelections(selections);
-      this.setState({ phase: ANALYSE });
-      console.log(analysisReport);
+      this.setState({ phase: ANALYSE, report: analysisReport });
     }
 
     if (nextPhase === PROCESS) {
@@ -137,9 +141,17 @@ class App extends React.Component<Props, State> {
             disabled={!this.state.phaseButtonActive}
             onClick={(nextPhase) => this.handlePhaseChange(nextPhase)}
           />
-
         </header>
-        <TreeNode props={this.state.folderTree} />
+        {this.state.phase === SELECT && (
+          <TreeNode props={this.state.folderTree} />
+        )}
+        {this.state.phase === ANALYSE && (
+          <Reporter
+            filesAnalysed={this.state.report.filesAnalysed}
+            duplicates={this.state.report.duplicates}
+            loading={!this.state.phaseButtonActive}
+          />
+        )}
       </div>
     );
   }

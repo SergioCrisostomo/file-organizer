@@ -12,7 +12,10 @@ module.exports = (req, res) => {
       const matchedFiles = allFiles.flat();
       const analyseReport = await filesAnalyser(matchedFiles);
 
-      res.send(analyseReport);
+      res.send({
+        filesAnalysed: matchedFiles.length,
+        duplicates: analyseReport
+      });
     })
     .catch((err) => {
       console.log("ERR", err);

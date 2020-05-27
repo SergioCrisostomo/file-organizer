@@ -1,5 +1,5 @@
 .app-selection-node {
-  padding: .05rem 0;
+  padding: 0.05rem 0;
 }
 
 .app-selection-node fieldset {
@@ -17,19 +17,26 @@
   cursor: pointer;
 }
 
-.app-tree-node {
+.app-tree-node,
+.app-report-node {
   padding-left: 1rem;
 }
 
 .app-phase-button {
-  padding: .25rem .5rem;
+  padding: 0.25rem 0.5rem;
   background-color: #eeeeee;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   margin-left: 1rem;
   margin-bottom: 1rem;
   font-size: 1rem;
+  cursor: pointer;
+}
+
+.app-phase-button:disabled {
+  opacity: 0.3;
+  cursor: none;
 }
 
 .app-phase-button.app-phase-selected {
-  background-color: aquamarine;
+  background-color: #00aeff;
 }
