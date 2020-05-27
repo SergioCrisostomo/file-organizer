@@ -112,7 +112,7 @@ class App extends React.Component<Props, State> {
     }
 
     if (nextPhase === PROCESS) {
-      setTimeout(() => this.setState({ phase: REPORT }), 2000);
+      this.setState({ phase: PROCESS })
     }
 
     this.setState({ phaseButtonActive: true });

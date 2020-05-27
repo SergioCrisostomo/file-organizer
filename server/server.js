@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const folderSelector = require("./routes/folderSelector");
 const postSelections = require("./routes/postSelections");
+const getFileStats = require("./routes/getFileStats");
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/folder-selector", folderSelector);
+app.get("/file-stats", getFileStats);
 app.post("/process-selections", postSelections);
 
 /*

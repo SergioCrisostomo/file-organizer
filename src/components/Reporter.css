@@ -1,0 +1,4 @@
+.app-report-node li:hover {
+  color: cadetblue;
+  cursor: pointer;
+}
