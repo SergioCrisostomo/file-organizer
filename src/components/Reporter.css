@@ -2,3 +2,9 @@
   color: cadetblue;
   cursor: pointer;
 }
+
+.app-report-pairs {
+  border-left: lightslategray 5px solid;
+  padding-left: 1rem;
+  margin-bottom: .5rem;
+}

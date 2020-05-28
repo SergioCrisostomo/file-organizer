@@ -147,6 +147,7 @@ class App extends React.Component<Props, State> {
         )}
         {this.state.phase === ANALYSE && (
           <Reporter
+            duplicateFolders={this.state.report.duplicateFolders}
             filesAnalysed={this.state.report.filesAnalysed}
             duplicates={this.state.report.duplicates}
             loading={!this.state.phaseButtonActive}
