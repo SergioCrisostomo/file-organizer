@@ -10,30 +10,13 @@ If you _have been there_ and want to use this, re-write this text it or make the
 
 # How to Use
 
-> This repository is in development. If you want to try it, run `node sandbox` to get an idea.
+> This repository is in development. If you want to try it, run `npm run start` and in a separate process also `npm run server` to get an idea.
 
-### API
-
-The organizer takes 2 arguments:
-
- - `folders`: a folder array to start looking for images
- - `options`: the options to use (optional).
-    - `ext`: file extension
-    - `verbose`: to show verbose logs (_defaults to `true`_)
-    - `recursive`: if it should look for files in subdirectories (_defaults to `false`_)
-    - `process`: if it should find duplicates or just show a file list (_defaults to `true`_)
-
-### Example
-
-    const organizer = require('./index');
-    organizer(folder, {ext: '.jpg', verbose: true, recursive: true})
-    	.then(res => console.log('RESULT:', res))
-    	.catch(e => console.log(e));
-
+Start the app and go to `http://localhost:3000/` in your browser. It will open a tree of folders and files. 
+Select which you want to analyse and click "Analyse".
 
 
 ## Roadmap:
 
  - add actions to the results found so user can actually fix/organize files
- - add tests (Jest)
- - improve the UI localhost (Vue.js + iView UI)
+ - ~~add tests (Jest)~~ ✔

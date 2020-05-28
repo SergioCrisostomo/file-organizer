@@ -24,8 +24,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test-app": "react-scripts test",
     "test-server": "./node_modules/.bin/jest server/",
+    "server": "node --max-old-space-size=6000 server/server.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
