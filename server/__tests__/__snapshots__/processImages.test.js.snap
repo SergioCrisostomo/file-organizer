@@ -1,5 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Should compare folders 1`] = `
+Array [
+  Object {
+    "A": "/Users/sergiocrisostomo/github/file-organizer/server/__tests__/images/folder_a",
+    "B": "/Users/sergiocrisostomo/github/file-organizer/server/__tests__/images/folder_b",
+    "brokenLinks": Object {
+      "distinctBrokenLinks": 0,
+      "leftBrokenLinks": 0,
+      "rightBrokenLinks": 0,
+      "totalBrokenLinks": 0,
+    },
+    "differences": 2,
+    "differencesDirs": 0,
+    "differencesFiles": 2,
+    "distinct": 1,
+    "distinctDirs": 0,
+    "distinctFiles": 1,
+    "equal": 2,
+    "equalDirs": 0,
+    "equalFiles": 2,
+    "left": 0,
+    "leftDirs": 0,
+    "leftFiles": 0,
+    "right": 1,
+    "rightDirs": 0,
+    "rightFiles": 1,
+    "same": false,
+    "symlinks": undefined,
+    "total": 4,
+    "totalDirs": 0,
+    "totalFiles": 4,
+  },
+]
+`;
+
 exports[`Should get file stats 1`] = `
 Object {
   "metadata": Object {

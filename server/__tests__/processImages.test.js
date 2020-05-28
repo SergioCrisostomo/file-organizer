@@ -1,5 +1,7 @@
 const path = require("path");
 const getFilesFromSelection = require("../utils/getFilesFromSelection");
+const findDuplicateFolders = require('../utils/findDuplicateFolders');
+
 const filesAnalyser = require("../../lib/index");
 const testImagesFolder = path.join(__dirname, "/images");
 const projectRoot = path.join(__dirname, "../../../");
@@ -58,4 +60,12 @@ test("Should get file stats", async () => {
   ["atime", "atimeMs"].forEach((key) => delete response.stats[key]);
 
   expect(response).toMatchSnapshot();
+});
+
+test("Should compare folders", async () => {
+  const files = await getTestFiles();
+  const duplicates = await filesAnalyser(files);
+  const duplicateFolders = await findDuplicateFolders(duplicates);
+
+  expect(duplicateFolders).toMatchSnapshot();
 });
