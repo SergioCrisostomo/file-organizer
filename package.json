@@ -11,6 +11,7 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "cors": "^2.8.5",
+    "dir-compare": "^2.3.0",
     "exif-parser": "^0.1.12",
     "express": "^4.17.1",
     "jpeg-exif": "^1.1.4",

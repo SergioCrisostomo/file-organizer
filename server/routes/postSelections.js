@@ -1,5 +1,7 @@
 const getFilesFromSelection = require("../utils/getFilesFromSelection");
 const filesAnalyser = require("../../lib/index");
+const findDuplicateFolders = require('../utils/findDuplicateFolders');
+
 
 module.exports = (req, res) => {
   console.log("Processing...", req.body);
@@ -10,11 +12,13 @@ module.exports = (req, res) => {
   Promise.all(promises)
     .then(async (allFiles) => {
       const matchedFiles = allFiles.flat();
-      const analyseReport = await filesAnalyser(matchedFiles);
-
+      const duplicates = await filesAnalyser(matchedFiles);
+      const duplicateFolders = await findDuplicateFolders(duplicates);
+      
       res.send({
         filesAnalysed: matchedFiles.length,
-        duplicates: analyseReport
+        duplicates,
+        duplicateFolders
       });
     })
     .catch((err) => {
