@@ -11,7 +11,6 @@ const dirCompareOptions = {
 
 function findDuplicateFolders(duplicates) {
 
-  console.log('DUPS', duplicates);
   // check if they are similar but also if A contains B || B contains A
 
   const checks = duplicates.map(async (files) => {
