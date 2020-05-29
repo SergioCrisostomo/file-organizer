@@ -51,9 +51,9 @@ const Folders = ({ duplicateFolders }) => {
   return (
     <div>
       <h5>Exact duplicates:</h5>
-      {identicalFolders}
-      <h5>Content is included in other folder</h5>
-      {includeds}
+      {identicalFolders.length > 0 ? identicalFolders : <p>~none found~</p>}
+      <h5>Content is included in other folder:</h5>
+      {includeds.length > 0 ? includeds : <p>~none found~</p>}
     </div>
   );
 };
