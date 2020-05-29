@@ -6,7 +6,7 @@ const nodePath = require("path");
 // }
 
 const iterator /*: IteratorArguments*/ = async (rootPath, type = "") => {
-  const regex = type ? new RegExp(`\\${type}$`) : "";
+  const regex = type ? new RegExp(`\\${type}$`, "i") : "";
 
   const stat = await fs.lstat(rootPath);
   if (stat.isFile()) {
